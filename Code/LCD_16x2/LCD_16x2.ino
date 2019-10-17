@@ -31,11 +31,11 @@ void LCD_Command(unsigned char lenh)
 void LCD_Data(unsigned char dulieu)  //Function to send display data to LCD
 {
     PORTD = dulieu;
-    digitalWrite(12,1);//RS=1, ghi du lieu
-    digitalWrite(11,0);
-    digitalWrite(13,1);
+    digitalWrite(RS,1);//RS=1, ghi du lieu
+    digitalWrite(RW,0);
+    digitalWrite(E,1);
     delay(100);
-    digitalWrite(13,0);
+    digitalWrite(E,0);
 }
 
 void LCD_Init()    //Function to prepare the LCD  and get it ready
