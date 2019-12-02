@@ -1,5 +1,15 @@
 int time = 100;//100 default
-
+/*
+        ------
+D1-->1--      --16++VCC
+D2-->2--      --15--D0
+D3-->3--      --14--Data-->12 Arduino
+D4-->4--      --13--GND
+D5-->5--      --12--LP-->11 Arduino
+D6-->6--      --11--CP-->9 Arduino
+D7-->7--      --10--VCC
+GND--8--      --9--x Not Use or Connect to 74592 Second
+       -------
 //Cac chan cua 74595 nhu sau:
 //D0= pin 15
 //D1= pin 1
@@ -21,6 +31,8 @@ int CP = 9;
 int DP = 12;   
 int E0=0;
 int E1=1;
+
+*/
 
 byte leds = 0;
 
@@ -153,3 +165,4 @@ void loop()
   Chuongtrinh_2();
   Chuongtrinh_1();
 }
+
