@@ -1,5 +1,21 @@
 int time = 100;//100 default
 
+//Cac chan cua 74595 nhu sau:
+//D0= pin 15
+//D1= pin 1
+//D2= pin 2
+//D3= pin 3
+//D4= pin 4
+//D5= pin 5
+//D6= pin 6
+//D7= pin 7
+//Data= pin 14 hay ký hiệu là DP
+//LP = pin 12
+//CP = pin 11
+//OE = pin 13 =0
+//VCC= pin 10 = Pin 16
+//GND = Pin13 = Pin 8
+
 int LP = 11;      
 int CP = 9;   
 int DP = 12;   
