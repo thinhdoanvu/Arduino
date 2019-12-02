@@ -1,4 +1,15 @@
 // Date and time functions using a DS1307 RTC connected via I2C and Wire lib
+//A5 <--> SCL DS1307
+//A4 <--> SDA DS1307
+//RS = 7 Arduino
+//E = 6 Arduino
+//RW = 0 for Write Data 
+//D4 = 5 Arduino
+//D5 = 4 Arduino
+//D6 = 3 Arduino
+//D7 = 2 Arduino
+
+
 #include <Wire.h>
 #include <LiquidCrystal.h>
 #include "RTClib.h"
