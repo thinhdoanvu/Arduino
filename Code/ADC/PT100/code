@@ -25,8 +25,8 @@ float calibration; //calibration
 float Rx; //Resistance of PT100
  
 // variables that required to convert voltage into resistance
-float C = 96.977; //Constant of straight line (Y = mx + C)
-float slope = 7.95; // Slope of straight line (Y = mx + C)
+float C = 95; //Constant of straight line (Y = mx + C)
+float slope = 8.7; // Slope of straight line (Y = mx + C)
  
  
 // variables that required to convert resistance into temperatures
@@ -89,7 +89,7 @@ void LCD_SecondRow()
 void Display()
 {
     String S1="Ndo: ";
-    S1 = S1 + String(tempC, 3); //lam tron 2 chu so thap phan 
+    S1 = S1 + String(tempC, 2); //lam tron 2 chu so thap phan 
     int j=0;
 
     while(S1[j] != '\0') // searching the null terminator in the sentence
@@ -99,12 +99,13 @@ void Display()
      }
 }
 
+
 void loop() 
 {
   val = analogRead(analogPin);  // read the input pin
   //Hien thi gia tri dien ap
   // Bits to Voltage
-  Volts  = (val/1023.0)*5;
+  Volts  = (val/1024.0)*5;
    // Converting voltage to resistance
   Rx = Volts*slope+C; //y=mx+c
   // Converting resistnace to temperature
