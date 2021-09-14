@@ -1,13 +1,14 @@
 // Date and time functions using a DS1307 RTC connected via I2C and Wire lib
-//A5 <--> SCL DS1307
-//A4 <--> SDA DS1307
-//RS = 7 Arduino
-//E = 6 Arduino
-//RW = 0 for Write Data 
-//D4 = 5 Arduino
-//D5 = 4 Arduino
-//D6 = 3 Arduino
-//D7 = 2 Arduino
+//Arduino <-> RTC/LCD
+//A5 <--> pin_SCL DS1307
+//A4 <--> pin_SDA DS1307
+//2 <--> pin_RS LCD
+//3 <-->pin_E LCD
+//RW LCD = GND for Write Data 
+//4 = pin_4 LCD
+//5 = pin_5 LCD
+//6 = pin_6 LCD
+//7 = pin_7 LCD
 
 
 #include <Wire.h>
@@ -15,7 +16,7 @@
 #include "RTClib.h"
 
 RTC_DS1307 rtc;
-LiquidCrystal lcd(7, 6, 5, 4, 3, 2); // (rs, e, d4, d5, d6, d7)
+LiquidCrystal lcd(2, 3, 4, 5, 6, 7); // (rs, e, d4, d5, d6, d7)
 
 char daysOfTheWeek[7][12] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
@@ -36,17 +37,19 @@ void setup ()
     lcd.print("RTC is NOT running!");
     //Serial.print("RTC is NOT running!");
   }
-  
-    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));//auto update from computer time
+    //Chi lam 1 lan khi khoi tao;
+    // Dat ngay gio dong ho theo hien tai cua may tinh
+//****rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));//auto update from computer time
+    // ta cung co the dat theo y muon theo vd ben duoi
+    // vi du thang 1 ngay 21, nam 2020 gio 3am
     //rtc.adjust(DateTime(2014, 1, 21, 3, 0, 0));// to set the time manualy 
-  
 }
 
 void loop () 
 {
     DateTime now = rtc.now();
-    
-    lcd.setCursor(0, 1);
+    //hang 1, cot 4
+    lcd.setCursor(4, 1);
     lcd.print(now.hour());
     lcd.print(':');
     lcd.print(now.minute());
@@ -56,7 +59,7 @@ void loop ()
 
     lcd.setCursor(0, 0);
     lcd.print(daysOfTheWeek[now.dayOfTheWeek()]);
-    lcd.print(" ,");
+    lcd.print(", ");
     lcd.print(now.day());
     lcd.print('/');
     lcd.print(now.month());
