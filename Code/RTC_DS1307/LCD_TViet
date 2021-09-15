@@ -20,6 +20,11 @@ String ngaythang="";
 String giophut="";
 char daysOfTheWeek[7][12] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 
+//khai bao bien cho LM35
+int analogPin = A0; //Doc du lieu cho ADC
+int val = 0;  //gia tri dang so Digital
+float temp; //gia tri nhiet do
+
 // doi tuong dong ho
 RTC_DS1307 rtc;
 
@@ -31,31 +36,40 @@ void setup() {
  // khoi tao dong ho
  if (! rtc.begin()) {
    lcd.print("RTC is not found!");
-   
+   Serial.print("Couldn't find RTC");
   while (1);
  }
+ 
  if (! rtc.isrunning()) {
     lcd.clear();
     lcd.print("RTC chua dat thoi gian");
+    Serial.print("RTC is NOT running!");
     
    //Chi lam 1 lan khi khoi tao;
    // Dat ngay gio dong ho theo hien tai cua may tinh
-//rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+ } 
+  //Sau khi nap xong thi xoa dong nay di
+  //rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
    
    // ta cung co the dat theo y muon theo vd ben duoi
    // vi du thang 1 ngay 21, nam 2020 gio 3am
    // rtc.adjust(DateTime(2020, 1, 21, 3, 0, 0));
- } 
-
  Serial.begin (9600);
+ lcd.clear();
  
 }
 // ---------------------------------------------------------------
 void showtime(DateTime now){
-  
+  val = analogRead(analogPin);  // read the input pin 0 - 1023 ADC 10 bit 2^10: 1024 trang thai
+ //xuat du lieu dang so: D0 - D7 T0 = 5V - 1023 Hoi: val =X t0=?
+ float voltage = (float)val * 5.0 / 1024.0;
+ temp = voltage * 100.0; //10mv = 10C Hoi: voltage = X => ?t0 =? (1V =1000mv)  
+ 
   String thu="";
   String ngay="";
+  String ndo = "";
 
+    ndo = " "+ String(temp)+ char(223) + "C";
     thu=" "+String(daysOfTheWeek[now.dayOfTheWeek()]);
   
    if(now.day()<=9)
@@ -111,15 +125,17 @@ void showtime(DateTime now){
    }
 
   ngaythang=ngay+thang+nam+thu;
-  giophut=gio+phut+giay;
+  giophut=gio+phut+giay+ndo;
   
     // hien thi ngay + thu
     lcd.setCursor(0, 0);    
     lcd.print(ngaythang);
     
-    // hien thi gio
+    // hien thi gio + nhietdo
     lcd.setCursor(0, 1);
     lcd.print(giophut);
+
+    
 
 Serial.println(ngaythang);
 Serial.println(giophut);
