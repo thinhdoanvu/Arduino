@@ -3,6 +3,7 @@ The library uses the Wire.h library for I2C comunications.
 A4=SDA <-> SDA=RTC
 A5=SCL <-> SCL=RTC
 I2C address 0x20, 16 column and 2 rows
+install: Arduino IDE - Sketch - Include Library - Add .Zip file = LCD_I2C.zip
 */
 
 #include <Wire.h> 
